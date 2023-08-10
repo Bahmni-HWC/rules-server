@@ -28,4 +28,4 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: bahmnihwc/avni-rules-server:master-${{ github.run_number }}
+          tags: bahmnihwc/avni-rules-server:master-${{ github.run_number }},bahmnihwc/avni-rules-server:latest
