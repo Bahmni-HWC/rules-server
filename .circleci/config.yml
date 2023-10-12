@@ -32,7 +32,6 @@ commands:
             cd /opt/rules-server
             sudo chmod a+x /opt/rules-server/deploy/install.sh
             sudo /opt/rules-server/deploy/install.sh $OPENCHS_UPLOAD_USER_USER_NAME $OPENCHS_UPLOAD_USER_PASSWORD $AVNI_TZ
-            sudo rm -rf /tmp/rules-server.zip
             EOF
 
 jobs:
@@ -84,17 +83,22 @@ jobs:
 
       - run: zip -r ~/rules-server.zip ../rules-server
 
+      - run: tar -czvf ~/rules-server.tgz  -C ../rules-server .
+
       - run: mkdir -p ~/artifacts
 
       - run: echo $CIRCLE_BUILD_NUM > ~/artifacts/build_version
 
       - run: cp ~/rules-server.zip ~/artifacts/
 
+      - run: cp ~/rules-server.tgz ~/artifacts/
+
       - persist_to_workspace:
           root: ~/artifacts
           paths:
             - build_version
             - rules-server.zip
+            - rules-server.tgz
 
       - store_artifacts:
           path: ~/artifacts
